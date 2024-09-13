@@ -1,5 +1,5 @@
 <?php
-
+//Validación campos rellenados
 if (!empty($_GET["email"]) && !empty($_GET["conf-email"]) && !empty($_GET["dni"]) && !empty($_GET["numero"])) {
 
     $email = $_GET["email"];
@@ -10,30 +10,30 @@ if (!empty($_GET["email"]) && !empty($_GET["conf-email"]) && !empty($_GET["dni"]
     $errores = array();
 
 
-    //Validación teléfono
+//Validación teléfono
     if (!preg_match("/^(?:(?:\+|00)?34)?[679]\d{8}$/",$telefono)) {
 
         $errores[] = "<p style='color:red'>ERROR: El telefono tiene un formato incorrecto";
     }
-    //Validación DNI
+//Validación DNI
     if (!preg_match("/[0-9]{8}[A-Za-z]/",$dni)) {
 
         $errores[] = "<p style='color:red'>ERROR: El DNI tiene un formato incorrecto";
     }
-    //Validación EMAIL
+//Validación EMAIL
     if (!filter_var($email,FILTER_VALIDATE_EMAIL)) {
 
         $errores[] = "<p style='color:red'>ERROR: Verifique el email";
 
     } else {
 
-        //Validación repetir EMAIL
+//Validación repetir EMAIL
         if ($confEmail != $email) {
 
             $errores[] = "<p style='color:red'>ERROR: Los emails no coinciden";
         }
     }
-    //Validación checkbox
+//Validación checkbox
     if (!isset($checkbox)) {
 
             $errores[] = "<p style='color:red'>ERROR: Debes aceptar los terminos y condiciones";
@@ -43,6 +43,7 @@ if (!empty($_GET["email"]) && !empty($_GET["conf-email"]) && !empty($_GET["dni"]
     $errores[] = "<p style='color: red'>ERROR: Todos los datos son requeridos</p>";
 }
 
+//Recopilación de errores y validación de envío
 if (count($errores)>0) {
     for ($i = 0; $i < count($errores); $i++) {
         $cadena .= $errores[$i];

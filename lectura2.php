@@ -1,5 +1,5 @@
 <?php
-
+//Validación campos rellenados
 if (!empty($_GET["nombre"]) && !empty($_GET["prim-apellido"]) && !empty($_GET["seg-apellido"]) && !empty($_GET["edad"])) {
 
     $nombre = $_GET["nombre"];
@@ -9,11 +9,12 @@ if (!empty($_GET["nombre"]) && !empty($_GET["prim-apellido"]) && !empty($_GET["s
     $errores = array();
 
 
-    //Validación teléfono
+//Validación edad
     if ($edad > 120 || $edad < 18) {
 
         $errores[] = "<p style='color:red'>ERROR: La edad es invalida";
     }
+//Validación de nombre y apellidos
     if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚ]+$/",$nombre) || !preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚ]+$/",$primApellido) || !preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚ]+$/",$segApellido)) {
 
         $errores[] = "<p style='color:red'>ERROR: El nombre contiene caracteres que son invalidos";
@@ -23,6 +24,7 @@ if (!empty($_GET["nombre"]) && !empty($_GET["prim-apellido"]) && !empty($_GET["s
     $errores[] = "<p style='color: red'>ERROR: Todos los datos son requeridos</p>";
 }
 
+//Recopilación de errores y validación de envío
 if (count($errores)>0) {
     for ($i = 0; $i < count($errores); $i++) {
         $cadena .= $errores[$i];

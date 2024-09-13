@@ -7,6 +7,7 @@ html{color:#222;margin:0;padding:0;}body,ul{padding:0;margin:0;}::-moz-selection
 }
 :root {
     --color-verde: #45BDA4;
+    --color-rojo: #ff0000;
     --color-verde_oscuro: #2d7366;
     --color-amarillo: #F9B801;
     --color-gris: #F2F2F2;
@@ -22,6 +23,8 @@ body {
 header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    font-size: 1em;
     max-width: 1200px;
     padding: 20px 30px;
     margin: auto;
@@ -35,10 +38,63 @@ header div {
     display: flex;
     align-items: center;
     font-size: 24px;
-
+    padding: 15px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+header div:hover p {
+    color: white;
+}
+header div:hover svg {
+    fill: var(--color-blanco)
+}
+header div:hover:after {
+    width: 100%;
+    height: 100%;
+}
+header div p {
+    transition-duration: .3s;
+}
+header div a {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    left: 0px;
+    z-index: 1;
+}
+header div:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 00%;
+    width: 00%;
+    border-radius: 20px;
+    transform: translate(-50%,-50%);
+    background: rgb(189, 189, 189); /*Usamos un background por defecto*/
+    background: linear-gradient(90deg, rgba(255,143,38,1) 0%, rgba(150,126,197,1) 48%, rgba(0,255,222,1) 100%);
+    background-size: 300% 100%; /*Asignamos un ancho para el background del 300% y altura 100%*/
+    animation: gradient 7s ease infinite;
+    transition: all .4s ease-out;
+    z-index: -1;
+}
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 header svg {
     fill: var(--color-verde);
+    transition-duration: .5s;
 }
 header img{
     height: 30px;
@@ -69,22 +125,18 @@ h1,h2 {
     width: calc(100% - 40px);
     padding: 20px;
 }
-.form-container {
-    padding-bottom: 50px;
-}
 .counter {
+    text-align: center;
+    font-size: 40px;
     color: var(--color-blanco);
     background-color: var(--color-negro);
     border-radius: 20px 20px 0 0;
-    text-align: center;
-    padding: 30px;
-    font-size: 40px;
-}
-.counter .arrow {
-    margin: 0 10px 0 5px;
 }
 .counter .current {
     color: var(--color-amarillo);
+}
+.counter .arrow {
+    margin: 0 10px 0 5px;
 }
 .counter .arrow:after,.counter .arrow:before {
     content: "";
@@ -107,6 +159,11 @@ h1,h2 {
     margin: 0 auto 50px;
     background-color: white;
     border-radius: 0 0 20px 20px;
+    padding-bottom: 50px;
+    height: 500px;
+    @media (width < 768px) {
+        height: 650px;
+    }
 }
 .main-data {
     width: 100%;
@@ -128,28 +185,24 @@ form>p {
 }
 .main-data label input {
     display: block;
-    width: 100%;
-    border: none;
-    margin-top: 25px;
-    border-bottom: 1px solid var(--color-verde);
     font-size: 16px;
-    margin-bottom: 5px;
+    margin: 25px 0 5px;
+    border: none;
+    border-bottom: 1px solid var(--color-verde);
+    width: 100%;
     transition-duration: .2s;
 }
 .main-data label {
-    display: block;
     text-align: left;
     font-size: 12px;
     @media (width > 768px) {
         width: 45%;
-        display: inline-block;
     }
 }
 form {
     color: var(--color-gris_oscuro);
 }
-
-.main-data input:focus,.main-data textarea:focus {
+.main-data input:focus {
     border-color: var(--color-verde_oscuro);
 }
 form a {
@@ -191,4 +244,74 @@ form a:hover {
 }
 input[type="checkbox"] {
     min-width: 16px;
+}
+/*Final Form*/
+
+
+
+/* Comienzo menu accesibilidad*/
+#accesibilidad {
+    display: flex;
+    position: fixed;
+    top: 200px;
+    left: -220px;
+    transition-duration: .2s;
+    z-index: 999;
+}
+#accesibilidad:hover {
+    left: 0;
+}
+#accesibilidad span {
+    display: block;
+    height: fit-content;
+    cursor: pointer;
+    padding: 3px;
+    border-radius: 0 5px 5px 0;
+    background-color: #005192;
+}
+
+#accesibilidad span:hover svg.running, #accesibilidad span svg.calm {
+    display: block;
+}
+#accesibilidad span svg.running, #accesibilidad span:hover svg.calm {
+    display: none;
+}
+#accesibilidad div h2 {
+    margin-bottom: 20px;
+    font-size: 25px;
+}
+#accesibilidad div {
+    background-color: #005192;
+    color: white;
+    padding: 20px;
+    border-radius: 0 0 10px 0;
+}
+#accesibilidad div button {
+    display: block;
+    padding: 10px 15px;
+    margin-top: 10px;
+    border: 1px solid #005192;
+    border-radius: 5px;
+    width: 100%;
+    color: #005192;
+    font-weight: bold;
+    cursor: pointer;
+}
+#accesibilidad div button:hover {
+    background-color: #005192;
+    color: white;
+    border: 1px solid white;
+}
+body.grayscale * {
+    filter: grayscale(100);
+}
+body.dark-theme {
+    background-color: #222;
+}
+/* Fin menu accesibilidad*/
+
+/*Accesibilidad*/
+.dark-theme header img,.dark-theme header div p{
+    filter: brightness(0) invert(1);
+
 }
